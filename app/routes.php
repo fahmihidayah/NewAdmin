@@ -13,33 +13,69 @@
 
 Route::get('/', function()
 {
-	return View::make('/pages/login');
+	if(Auth::check()){
+		return Redirect::to('member');
+	}
+	else {
+		return Redirect::to('login');		
+	}
+	
 });
 
-Route::post('coba', function()
-{
-	return View::make('hello');
+Route::get('login', function(){
+	return View::make("/pages/login");
 });
+
+Route::post('login', 'HomeController@login');
 
 Route::get('register', function(){
 	return View::make('/pages/register');
 });
 
-Route::post('register', function(){
-	return 'register success';
-});
+Route::post('register','HomeController@insertUser');
 
 Route::get('member', function(){
-	return View::make('/pages/member');
+	$user = Auth::user();
+	return View::make('/pages/member')->with('user_name', $user->nama_frontliner);
 });
+
+// Route::get('member', 'HomeController@aktifitas');
+
 Route::post('member', function(){
 	return View::make('/pages/member');
 });
 
-Route::get('withdraw', function(){
-	return View::make('/pages/withdraw');
+Route::get('info_saldo', function(){
+	$user = Auth::user();
+	return View::make('/pages/info_saldo')->with('saldo', strval($user->saldo))
+											->with('user_name', $user->nama_frontliner);
 });
 
-Route::get('info_saldo', function(){
-	return View::make('/pages/info_saldo');
+Route::get('withdraw', function(){
+	$user = Auth::user();
+	return View::make('/pages/withdraw')->with('saldo' ,strval($user->saldo))
+										->with('user_name', $user->nama_frontliner);
 });
+
+Route::get('example', function(){
+	return View::make('/pages/example_login');
+});
+
+Route::get('success_register', function(){
+	return View::make('/pages/success_register');	
+});
+
+Route::get('logout', "HomeController@logout");
+
+Route::post('inser_nomor_imei', 'HomeController@inserNomerImei');
+
+Route::post('withdraw_request', 'HomeController@requestWithdraw');
+
+Route::get('list_sell_requests', 'HomeController@getListSellRequest');
+
+Route::get('admin', 'HomeController@adminListSellRequest');
+Route::post('admin', 'HomeController@updateListSellRequest');
+
+
+Route::get('permintaan_withdraw', 'HomeController@adminListWitdrawRequest');
+Route::post('permintaan_withdraw','HomeController@updateListWithdrawRequest');

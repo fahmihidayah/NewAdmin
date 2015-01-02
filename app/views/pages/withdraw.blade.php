@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Member Area</a>
+                <a class="navbar-brand" href="index.html">{{ $user_name}}</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -61,16 +61,16 @@
                         
                         
                         <li>
-                            <a href="http://localhost:8000/member"><i class="fa fa-edit fa-fw"></i>Aktifitas</a>
+                            <a href="{{URL::to('member')}} "><i class="fa fa-edit fa-fw"></i>Aktifitas</a>
                         </li>
                         <li>
-                            <a href="http://localhost:8000/withdraw"><i class="fa fa-money fa-fw"></i>Withdraw</a>
+                            <a href="{{URL::to('withdraw')}}"><i class="fa fa-money fa-fw"></i>Withdraw</a>
                         </li>
                         <li>
-                            <a href="http://localhost:8000/info_saldo"><i class="fa fa-info-circle fa-fw"></i>Info Saldo</a>
+                            <a href="{{ URL::to('info_saldo')}}"><i class="fa fa-info-circle fa-fw"></i>Info Saldo</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                            <a href="{{ URL::to('logout')}}"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
                         </li>
 
 
@@ -87,6 +87,24 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">Withdraw</h1>
+                        <div class="col-lg-6">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">Input Withdraw</div>    
+                                    <div class="panel-body">
+                                    <div class="form-group">
+                                        <h3 class="text-primary"> Info saldo : Rp {{$saldo}}</h3>
+                                    </div>
+                                    {{ Form::open(array('url' => 'withdraw_request')) }}   
+                                    <div class="form-group">
+                                        <a>Jumlah Withdraw</a>
+                                        <input class="form-control"  name="jumlah_withdraw" >
+                                    </div>  
+                                    <button type="submit" class="btn btn-primary">Withdraw</button>
+                                    {{Form::close()}}
+                                    </div>
+                                </div>    
+
+                            </div>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>

@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Member Area</a>
+                <a class="navbar-brand" href="index.html">{{ $user_name}}</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -60,17 +60,17 @@
                     <ul class="nav" id="side-menu">
                         
                         
-                        <li>
-                            <a href="http://localhost:8000/member"><i class="fa fa-edit fa-fw"></i>Aktifitas</a>
+                         <li>
+                            <a href="{{URL::to('member')}} "><i class="fa fa-edit fa-fw"></i>Aktifitas</a>
                         </li>
                         <li>
-                            <a href="http://localhost:8000/withdraw"><i class="fa fa-money fa-fw"></i>Withdraw</a>
+                            <a href="{{URL::to('withdraw')}}"><i class="fa fa-money fa-fw"></i>Withdraw</a>
                         </li>
                         <li>
-                            <a href="http://localhost:8000/info_saldo"><i class="fa fa-info-circle fa-fw"></i>Info Saldo</a>
+                            <a href="{{ URL::to('info_saldo')}}"><i class="fa fa-info-circle fa-fw"></i>Info Saldo</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                            <a href="{{ URL::to('logout')}}"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
                         </li>
 
                     </ul>
@@ -92,7 +92,7 @@
                                     <div class="panel-heading">Saldo Anda</div>    
                                     <div class="panel-body">
                                     <div class="form-group">
-                                        <h3 class="text-primary">Rp 100.000</h3>
+                                        <h3 class="text-primary">Rp. {{$saldo}}</h3>
                                     </div>
                                         
                                     </div>

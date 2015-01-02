@@ -15,11 +15,23 @@ class CreateUserTable extends Migration {
 		Schema::create('users', function($table)
 		{
 			$table->increments('id');
-			$table->string('username');
-			$table->string('email');
-			$table->string('password');
-			$table->string('first_name');
-			$table->string('last_name');
+			$table->string('nama_frontliner')->nullable();
+			$table->string('alamat_frontliner')->nullable();
+			$table->string('kota_frontliner')->nullable();
+			$table->string('nomor_telepon_frontliner')->nullable();
+			$table->string('nomor_rekening_frontliner')->nullable();
+			$table->string('nama_bank_frontliner')->nullable();
+			$table->string('email')->unique();
+			$table->string('password')->nullable();
+			$table->string('nama_toko')->nullable();
+			$table->string('alamat_toko')->nullable();
+			$table->string('kota_toko')->nullable();
+			$table->string('nomor_telepon_toko')->nullable();
+			$table->string('nama_pemilik_toko')->nullable();
+			$table->string('nomor_telepon_pemilik_toko')->nullable();
+			$table->double('saldo',15,4)->nullable();
+			$table->string('remember_token');
+			$table->string('type')->nullable();
 			$table->timestamps();
 		});
 	}
@@ -35,3 +47,4 @@ class CreateUserTable extends Migration {
 	}
 
 }
+

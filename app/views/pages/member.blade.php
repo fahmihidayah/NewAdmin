@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Member Area</a>
+                <a class="navbar-brand" href="index.html">{{ $user_name}}</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -61,16 +61,16 @@
                         
                         
                         <li>
-                            <a href="http://localhost:8000/member"><i class="fa fa-edit fa-fw"></i>Aktifitas</a>
+                            <a href="{{URL::to('member')}} "><i class="fa fa-edit fa-fw"></i>Aktifitas</a>
                         </li>
                         <li>
-                            <a href="http://localhost:8000/withdraw"><i class="fa fa-money fa-fw"></i>Withdraw</a>
+                            <a href="{{URL::to('withdraw')}}"><i class="fa fa-money fa-fw"></i>Withdraw</a>
                         </li>
                         <li>
-                            <a href="http://localhost:8000/info_saldo"><i class="fa fa-info-circle fa-fw"></i>Info Saldo</a>
+                            <a href="{{ URL::to('info_saldo')}}"><i class="fa fa-info-circle fa-fw"></i>Info Saldo</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                            <a href="{{ URL::to('logout')}}"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
                         </li>
 
 
@@ -92,7 +92,15 @@
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Input Data</div>    
                                     <div class="panel-body">
-                                    {{ Form::open(array('url' => 'member')) }}   
+                                    {{ Form::open(array('url' => 'inser_nomor_imei')) }}  
+                                     @if($errors->has())
+                                        <div class="alert alert-danger">
+                                         <label>error</label><br>
+                                             @foreach($errors->all() as $error)
+                                                {{$error}}<br>
+                                              @endforeach
+                                         </div>
+                                      @endif
                                     <div class="form-group">
                                         <a>Nomor Imei</a>
                                         <input class="form-control"  name="nomor_imei" >

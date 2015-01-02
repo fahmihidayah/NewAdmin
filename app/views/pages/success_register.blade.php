@@ -1,4 +1,4 @@
-    
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,38 +40,12 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Please Sign In</h3>
+                        <h3 class="panel-title">Registrasi berhasil</h3>
                     </div>
                     <div class="panel-body">
-                     
-                        {{ Form::open(array('url' => 'login')) }}
-                            @if($errors->has())
-                            <div class="alert alert-danger">
-                            <label>error</label><br>
-                                @foreach($errors->all() as $error)
-                                    {{$error}}<br>
-                                @endforeach
-                            </div>
-                            @endif
-                            
-                            <fieldset>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
-                                    </label>
-                                </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
-                            </fieldset>
-                        {{ Form::close() }}
+                        
                             <div class="checkbox">
-                                <a href="http://localhost:8000/register">Don't have user account?</a>
+                                <a href="http://localhost:8000/">Klik disini untuk lgoin</a>
                             </div>
                             
                     </div>
