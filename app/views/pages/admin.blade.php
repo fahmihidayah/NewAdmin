@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Admin</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -52,7 +52,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html">Member Area</a>
+                    <a class="navbar-brand" href="index.html">{{$user->nama_frontliner}}</a>
                 </div>
                 <!-- /.navbar-header -->
 
@@ -74,7 +74,7 @@
                             </li>
 
                             <li>
-                                <a href="#"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                                <a href="{{ URL::to('logout')}}"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
                             </li>
 
 

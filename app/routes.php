@@ -14,7 +14,16 @@
 Route::get('/', function()
 {
 	if(Auth::check()){
-		return Redirect::to('member');
+		$user = Auth::user();
+		if($user->type === "admin")
+		{
+			return Redirect::to('admin');
+		}
+		else 
+		{
+			return Redirect::to('member');	
+		}
+		
 	}
 	else {
 		return Redirect::to('login');		
@@ -35,8 +44,14 @@ Route::get('register', function(){
 Route::post('register','HomeController@insertUser');
 
 Route::get('member', function(){
-	$user = Auth::user();
-	return View::make('/pages/member')->with('user_name', $user->nama_frontliner);
+	if(Auth::check()){
+		$user = Auth::user();
+		return View::make('/pages/member')->with('user_name', $user->nama_frontliner);	
+	}
+	else {
+		return Redirect::to('login');
+	}
+	
 });
 
 // Route::get('member', 'HomeController@aktifitas');
@@ -48,13 +63,13 @@ Route::post('member', function(){
 Route::get('info_saldo', function(){
 	$user = Auth::user();
 	return View::make('/pages/info_saldo')->with('saldo', strval($user->saldo))
-											->with('user_name', $user->nama_frontliner);
+	->with('user_name', $user->nama_frontliner);
 });
 
 Route::get('withdraw', function(){
 	$user = Auth::user();
 	return View::make('/pages/withdraw')->with('saldo' ,strval($user->saldo))
-										->with('user_name', $user->nama_frontliner);
+	->with('user_name', $user->nama_frontliner);
 });
 
 Route::get('example', function(){
@@ -79,3 +94,5 @@ Route::post('admin', 'HomeController@updateListSellRequest');
 
 Route::get('permintaan_withdraw', 'HomeController@adminListWitdrawRequest');
 Route::post('permintaan_withdraw','HomeController@updateListWithdrawRequest');
+
+Route::get('/api/login',"HomeController@apiLogin");

@@ -28,6 +28,7 @@ class UserTableSeeder extends Seeder {
 				'nama_pemilik_toko' => 'Smasul',
 				'nomor_telepon_pemilik_toko' => '085646616284',
 				'kota_toko' => 'malang',
+				'jumlah_penjualan_imei' => '0',
                 'type'  => 'admin',
                 'created_at' => new DateTime(),
                 'updated_at' => new DateTime()
@@ -47,6 +48,7 @@ class UserTableSeeder extends Seeder {
 				'nama_pemilik_toko' => 'Smasul',
 				'nomor_telepon_pemilik_toko' => '085646616284',
 				'kota_toko' => 'malang',
+				'jumlah_penjualan_imei' => '0',
                 'type'  => 'frontliner',
                 'created_at' => new DateTime(),
                 'updated_at' => new DateTime()

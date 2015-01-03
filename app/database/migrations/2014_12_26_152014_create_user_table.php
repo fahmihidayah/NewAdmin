@@ -29,7 +29,8 @@ class CreateUserTable extends Migration {
 			$table->string('nomor_telepon_toko')->nullable();
 			$table->string('nama_pemilik_toko')->nullable();
 			$table->string('nomor_telepon_pemilik_toko')->nullable();
-			$table->double('saldo',15,4)->nullable();
+			$table->double('saldo',15,2)->nullable();
+			$table->double('jumlah_penjualan_imei', 15, 0)->nullable();
 			$table->string('remember_token');
 			$table->string('type')->nullable();
 			$table->timestamps();

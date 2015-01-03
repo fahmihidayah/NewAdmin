@@ -97,7 +97,14 @@ class HomeController extends BaseController {
 				'password' => Input::get('password')
 				);
 			if(Auth::attempt($userdata, true)){
-				return Redirect::to('member');
+				$user = Auth::user();
+				if($user->type === "admin"){
+					return Redirect::to('admin');
+				}	
+				else {
+					return Redirect::to('member');		
+				}
+				
 			}
 			else 
 			{
@@ -181,21 +188,29 @@ class HomeController extends BaseController {
 	public function adminListSellRequest()
 	{
 		$list_sell_requests = SellRequest::where('status_request', '=', 'menunggu')->get();	
-		return View::make('/pages/admin')->with('list_sell_requests', $list_sell_requests);
+		$user = Auth::user();
+		return View::make('/pages/admin')->with('list_sell_requests', $list_sell_requests)
+										->with('user', $user);
 	}
 
 	public function updateListSellRequest()
 	{
 		$list_sell_requests = SellRequest::where('status_request', '=', 'menunggu')->get();	
+		
 		foreach ($list_sell_requests as $sell_request) {
 			if(Input::get($sell_request->id) === 'on'){
 				$sell_request->status_request = "benar";
+				$user = $sell_request->user;
+				$user->jumlah_penjualan_imei = $user->jumlah_penjualan_imei + 1;
+				$user->save();
 				$sell_request->save();
 			}
 
 		}
 		$list_sell_requests = SellRequest::where('status_request', '=', 'menunggu')->get();	
-		return View::make('/pages/admin')->with('list_sell_requests', $list_sell_requests);
+		$user = Auth::user();
+		return View::make('/pages/admin')->with('list_sell_requests', $list_sell_requests)
+											->with('user',$user);
 	}
 
 	public function getListSellRequest()
@@ -207,7 +222,9 @@ class HomeController extends BaseController {
 	public function adminListWitdrawRequest()
 	{
 		$list_withdraw_requests = WithdrawRequest::where('status_request', '=', 'menunggu')->get();	
-		return View::make('/pages/permintaan_withdraw')->with('list_withdraw_requests', $list_withdraw_requests);
+		$user = Auth::user();
+		return View::make('/pages/permintaan_withdraw')->with('list_withdraw_requests', $list_withdraw_requests)
+														->with('user', $user);
 	}
 
 	public function updateListWithdrawRequest()
@@ -226,7 +243,62 @@ class HomeController extends BaseController {
 				$sell_request->status_request = "salah";
 			}
 		}
-		$list_sell_requests = WithdrawRequest::where('status_request', '=', 'menunggu')->get();	
-		return View::make('/pages/permintaan_withdraw')->with('list_withdraw_requests', $list_sell_requests);
+		$list_withdraw_requests = WithdrawRequest::where('status_request', '=', 'menunggu')->get();	
+		$user = Auth::user();
+		return View::make('/pages/permintaan_withdraw')->with('list_withdraw_requests', $list_withdraw_requests)
+														->with('user', $user);
 	}
+
+/**
+belim diimplementasikan
+**/
+
+	public function updateAllUserSaldo()
+	{
+		$list_users = User::all();
+		foreach ($list_users as $user) {
+			if($user->jumlah_penjualan_imei <= 10){
+				$user->saldo = $user->saldo + (5000 * $user->jumlah_penjualan_imei);
+			}
+			else if($user->jumlah_penjualan_imei >= 11 && $user->jumlah_penjualan_imei <= 20){
+				$user->saldo = $user->saldo + (7500 * ($user->jumlah_penjualan_imei - 10)) + 50000;
+			}
+			else if($user->jumlah_penjualan_imei >= 21){
+				$user->saldo = $user->saldo + (10000 * ($user->jumlah_penjualan_imei - 20)) + 125000;
+			}
+			$user->jumlah_penjualan_imei = 0;
+			$user->save();
+		}
+		return Redirect::to('admin');
+	}
+
+	// public function apiLogin()
+	// {
+	// 	$rules = array(
+	// 		'email' => 'required|email',
+	// 		'password' => 'required|alphaNum|min:3'
+	// 		);
+	// 	$validator_message = array(
+	// 		'required' => ':attribute belum diisi',
+	// 		'email' => ':attribute diisikan salah',
+	// 		'alphaNum' => ':attribute eror',
+	// 		'min'=> ':attribute minimal 3 karakter'
+	// 		);
+	// 	$validator = Validator::make(Input::all(), $rules, $validator_message);
+
+	// 	if($validator->fails()){
+	// 		return $validator->messages()->toJson();
+	// 	}
+	// 	else {
+	// 		$userdata = array(
+	// 			'email' => Input::get('email'),
+	// 			'password' => Input::get('password')
+	// 			);			
+	// 		else 
+	// 		{
+	// 			$user = Auth::user();
+	// 			return $user;
+	// 		}
+	// 	}
+	// }
 }
